@@ -1,9 +1,10 @@
 %define uname  %{kernel_version}
 %define module_dir updates
+%define release 4.0.12
 
-Summary: Driver for hello-world
-Name: hello-world
-Version: 1.0
+Summary: Driver for ceph
+Name: ceph
+Version: 4.4.52
 Release: %{?release}%{!?release:1}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -15,7 +16,7 @@ Requires(post): /usr/sbin/depmod
 Requires(postun): /usr/sbin/depmod
 
 %description
-hello-world Linux Device Driver source.
+ceph Linux Device Driver source.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -50,4 +51,4 @@ find %{buildroot}/lib/modules/%{uname} -name "*.ko" -type f | xargs chmod u+x
 
 %changelog
 * Sat Jan 26 2019 Rushikesh Jadhav <rushikesh7@gmail.com> - 1.0
-- Added example driver hello-world-1.0
+- Added example driver ceph-1.0
