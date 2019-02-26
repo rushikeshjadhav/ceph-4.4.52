@@ -1,0 +1,48 @@
+From 044470266a5040585093e863f163f49024c3e459 Mon Sep 17 00:00:00 2001
+From: Fabian Frederick <fabf@skynet.be>
+Date: Mon, 27 Feb 2017 14:28:32 -0800
+Subject: fs: add i_blocksize()
+
+commit 93407472a21b82f39c955ea7787e5bc7da100642 upstream.
+
+Replace all 1 << inode->i_blkbits and (1 << inode->i_blkbits) in fs
+branch.
+
+This patch also fixes multiple checkpatch warnings: WARNING: Prefer
+'unsigned int' to bare use of 'unsigned'
+
+Thanks to Andrew Morton for suggesting more appropriate function instead
+of macro.
+
+[geliangtang@gmail.com: truncate: use i_blocksize()]
+  Link: http://lkml.kernel.org/r/9c8b2cd83c8f5653805d43debde9fa8817e02fc4.1484895804.git.geliangtang@gmail.com
+Link: http://lkml.kernel.org/r/1481319905-10126-1-git-send-email-fabf@skynet.be
+Signed-off-by: Fabian Frederick <fabf@skynet.be>
+Signed-off-by: Geliang Tang <geliangtang@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Ross Zwisler <ross.zwisler@linux.intel.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ fs/ceph/addr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+(limited to 'fs/ceph')
+
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index b7d218a168fb..c6a1ec110c01 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -697,7 +697,7 @@ static int ceph_writepages_start(struct address_space *mapping,
+ 	struct pagevec pvec;
+ 	int done = 0;
+ 	int rc = 0;
+-	unsigned wsize = 1 << inode->i_blkbits;
++	unsigned int wsize = i_blocksize(inode);
+ 	struct ceph_osd_request *req = NULL;
+ 	int do_sync = 0;
+ 	loff_t snap_size, i_size;
+-- 
+cgit 1.2-0.3.lf.el7
+

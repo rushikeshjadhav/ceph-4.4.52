@@ -1,0 +1,14 @@
+--- a/fs/ceph/Makefile	2017-02-26 10:08:29.000000000 +0000
++++ b/fs/ceph/Makefile	2019-02-26 19:12:18.568000000 +0000
+@@ -2,6 +2,11 @@
+ # Makefile for CEPH filesystem.
+ #
+ 
++CONFIG_CEPH_FS = m
++#CONFIG_CEPH_FSCACHE = y
++
++ccflags-$(CONFIG_CEPH_FSCACHE) += -DCONFIG_CEPH_FSCACHE
++
+ obj-$(CONFIG_CEPH_FS) += ceph.o
+ 
+ ceph-y := super.o inode.o dir.o file.o locks.o addr.o ioctl.o \
